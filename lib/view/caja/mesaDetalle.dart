@@ -3,6 +3,8 @@ import 'package:citadino/model/carta.dart';
 import 'package:citadino/view/caja/cajaPedidos.dart';
 import 'package:citadino/view/components/ComplexDrawerPage.dart';
 import 'package:citadino/viewmodel/producto/ProductoList.dart';
+import 'package:citadino/viewmodel/venta/ventaDetailSave.dart';
+import 'package:citadino/viewmodel/venta/ventaSave.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,6 +30,7 @@ class _MesaDetalleState extends State<MesaDetalle> {
     {"IDMESA": "MESA 10", "MESA":"MESA 10"},{"IDMESA": "MESA 11", "MESA":"MESA 11"},{"IDMESA": "MESA 12", "MESA":"MESA 12"},
     {"IDMESA": "MESA 13", "MESA":"MESA 13"},{"IDMESA": "PARA LLEVAR", "MESA":"PARA LLEVAR"}];
   String mesaseleccionada = "";
+  int codigo_venta = 0;
   final myControllerUser = TextEditingController();
   List<Carta> listcarta = [];
 
@@ -40,6 +43,11 @@ class _MesaDetalleState extends State<MesaDetalle> {
 
   Future<void>ListarProductosCarta()async{
     String nombre = "";
+    if(widget.detalle!.isNotEmpty){
+      codigo_venta = int.parse(widget.detalle![0]["nro_venta"]);
+    }else{
+      codigo_venta = 0;
+    }
 
     carta = await ProductoList().RecibirDatosCarta(nombre);
     setState(() {
@@ -158,7 +166,7 @@ class _MesaDetalleState extends State<MesaDetalle> {
 
                             }, (onValidateVal){
                               if(onValidateVal == null){
-                                return "Por favor selecciona un punto de partida";
+                                return "Por favor selecciona una mesa";
                               }
                               return null;
                             },
@@ -330,6 +338,24 @@ class _MesaDetalleState extends State<MesaDetalle> {
                                     codigo: "-"
                                 ), onWillPop:  () async => false,));
                             if(result != "0"){
+                              if(codigo_venta == 0){
+                                var fecha = DateTime.now();
+                                String dia_actual = fecha.toString().substring(0,4)+"-"+fecha.toString().substring(5,7)+"-"+fecha.toString().substring(8,10);
+                                String hora = fecha.toString().substring(11,14)+fecha.toString().substring(14,16);
+
+                                String letras = "-";
+                                List? rpta = await VentaSave().SaveDatosVentas(dia_actual, widget.mesa!, "2", hora, letras);
+                                if(rpta![0]["ESTADO"] == 200){
+                                  double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
+                                  int? dato = await VentaDetailSave().SaveDetailDatosVentas("UND", carta![index]["codigo"], "3",result.toString(), carta![index]["precio"], subtotal.toString(), "0", "-", subtotal.toString(), "0", rpta[0]["DATO"].toString());
+
+                                }else{
+                                  print("ERROR");
+                                }
+                              }else{
+                                double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
+                                int? dato = await VentaDetailSave().SaveDetailDatosVentas("UND", carta![index]["codigo"], "3",result.toString(), carta![index]["precio"], subtotal.toString(), "0", "-", subtotal.toString(), "0", codigo_venta.toString());
+                              }
                               setState(() {
                                 double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
                                 widget.detalle!.add({"cantidad":result, "producto":carta![index]["nombre"], "precio":carta![index]["precio"], "subtotal":subtotal.toString()});

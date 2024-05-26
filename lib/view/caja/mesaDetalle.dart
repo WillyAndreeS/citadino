@@ -3,6 +3,7 @@ import 'package:citadino/model/carta.dart';
 import 'package:citadino/view/caja/cajaPedidos.dart';
 import 'package:citadino/view/components/ComplexDrawerPage.dart';
 import 'package:citadino/viewmodel/producto/ProductoList.dart';
+import 'package:citadino/viewmodel/venta/ventaDelete.dart';
 import 'package:citadino/viewmodel/venta/ventaDetailSave.dart';
 import 'package:citadino/viewmodel/venta/ventaSave.dart';
 import 'package:flutter/cupertino.dart';
@@ -236,10 +237,19 @@ class _MesaDetalleState extends State<MesaDetalle> {
                           Text(widget.detalle![index]["producto"], style: TextStyle(color:Colors.black, fontSize: 20),textAlign: TextAlign.center),
                           Text(widget.detalle![index]["subtotal"], style: TextStyle(color:Colors.black, fontSize: 20),textAlign: TextAlign.center),
                           GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                widget.detalle!.removeAt(index);
-                              });
+                            onTap: () async{
+                              double total = 0;
+                              for(int i = 0; i <widget.detalle!.length; i++){
+                                total = total + double.parse(widget.detalle![i]["subtotal"]);
+                              }
+                              double subtotal = total - double.parse(widget.detalle![index]["subtotal"]);
+                             int? dato =  await VentaDetailDelete().DeleteDetailDatosVentas(codigo_venta.toString(), widget.detalle![index]["item"], widget.detalle![index]["codigo_articulo"], subtotal.toString(), "0");
+                             if(dato == 200){
+                               setState(() {
+                                 widget.detalle!.removeAt(index);
+                               });
+                             }
+
 
                             },
                             child: Container(
@@ -348,18 +358,26 @@ class _MesaDetalleState extends State<MesaDetalle> {
                                 if(rpta![0]["ESTADO"] == 200){
                                   double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
                                   int? dato = await VentaDetailSave().SaveDetailDatosVentas("UND", carta![index]["codigo"], "3",result.toString(), carta![index]["precio"], subtotal.toString(), "0", "-", subtotal.toString(), "0", rpta[0]["DATO"].toString());
-
+                                  if(dato == 200){
+                                    setState(() {
+                                      double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
+                                      widget.detalle!.add({"cantidad":result, "producto":carta![index]["nombre"], "precio":carta![index]["precio"], "subtotal":subtotal.toString()});
+                                    });
+                                  }
                                 }else{
                                   print("ERROR");
                                 }
                               }else{
                                 double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
                                 int? dato = await VentaDetailSave().SaveDetailDatosVentas("UND", carta![index]["codigo"], "3",result.toString(), carta![index]["precio"], subtotal.toString(), "0", "-", subtotal.toString(), "0", codigo_venta.toString());
+                                if(dato == 200){
+                                  setState(() {
+                                    double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
+                                    widget.detalle!.add({"cantidad":result, "producto":carta![index]["nombre"], "precio":carta![index]["precio"], "subtotal":subtotal.toString()});
+                                  });
+                                }
                               }
-                              setState(() {
-                                double subtotal = double.parse(carta![index]["precio"]) * int.parse(result);
-                                widget.detalle!.add({"cantidad":result, "producto":carta![index]["nombre"], "precio":carta![index]["precio"], "subtotal":subtotal.toString()});
-                              });
+
                             }
 
 

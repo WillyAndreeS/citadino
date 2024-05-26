@@ -402,21 +402,11 @@ class _CajaPedidosState extends State<CajaPedidos> {
                           ]),
                       child: Text("MESA 1", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                     )),
-                    GestureDetector(
-                      onTap: () async{
-                        String fecha_seleccionada = myControllerFecha.text;
-                        String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
-
-                        List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 2");
-                        Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 2",detalle: detalle)));
-                      },
-                      child:Container(
-                      alignment: Alignment.center,
+                    Container(
                       margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                       width: MediaQuery.of(context).size.width* 0.1,
                       height: MediaQuery.of(context).size.height *0.1,
-                      decoration:  BoxDecoration(color: mesa2 == "R" ? Colors.green: Colors.red,
+                      decoration: const BoxDecoration(color: Colors.white,
 
                           borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
                             BoxShadow(
@@ -425,8 +415,7 @@ class _CajaPedidosState extends State<CajaPedidos> {
                               offset: Offset(0.0, 10.0),
                             )
                           ]),
-                      child: Text("MESA 2", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
-                    )),
+                    ),
                   ],)
 
                 ],),
@@ -502,49 +491,73 @@ class _CajaPedidosState extends State<CajaPedidos> {
               child: Container( child:Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                  width: MediaQuery.of(context).size.width* 0.1,
-                  height: MediaQuery.of(context).size.height *0.1,
-                  decoration: const BoxDecoration(color: Colors.white,
+                GestureDetector(
+                    onTap: () async{
+                      String fecha_seleccionada = myControllerFecha.text;
+                      String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
 
-                      borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10.0,
-                          offset: Offset(0.0, 10.0),
-                        )
-                      ]),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                  width: MediaQuery.of(context).size.width* 0.1,
-                  height: MediaQuery.of(context).size.height *0.1,
-                  decoration: const BoxDecoration(color: Colors.white,
+                      List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 2");
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 2",detalle: detalle)));
+                    },
+                    child:Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                      width: MediaQuery.of(context).size.width* 0.1,
+                      height: MediaQuery.of(context).size.height *0.1,
+                      decoration:  BoxDecoration(color: mesa2 == "R" ? Colors.green: Colors.red,
 
-                      borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10.0,
-                          offset: Offset(0.0, 10.0),
-                        )
-                      ]),
-                ),
+                          borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 10.0,
+                              offset: Offset(0.0, 10.0),
+                            )
+                          ]),
+                      child: Text("MESA 2", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                    )),
+                GestureDetector(
+                    onTap: () async{
+                      String fecha_seleccionada = myControllerFecha.text;
+                      String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
+
+                      List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 3");
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 3",detalle: detalle)));
+                    },
+                    child:Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                      width: MediaQuery.of(context).size.width* 0.1,
+                      height: MediaQuery.of(context).size.height *0.1,
+                      decoration:  BoxDecoration(color: mesa3 == "R" ? Colors.green: Colors.red,
+
+                          borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 10.0,
+                              offset: Offset(0.0, 10.0),
+                            )
+                          ]),
+                      child: Text("MESA 3", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                    )),
+
+
               GestureDetector(
                 onTap: () async{
                   String fecha_seleccionada = myControllerFecha.text;
                   String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
 
-                  List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 3");
+                  List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 4");
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 3",detalle: detalle)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 4",detalle: detalle)));
                 },
                 child:Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                   width: MediaQuery.of(context).size.width* 0.05,
                   height: MediaQuery.of(context).size.height *0.15,
-                  decoration:  BoxDecoration(color: mesa3 == "R" ? Colors.green: Colors.red,
+                  decoration:  BoxDecoration(color: mesa4 == "R" ? Colors.green: Colors.red,
 
                       borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
                         BoxShadow(
@@ -553,19 +566,23 @@ class _CajaPedidosState extends State<CajaPedidos> {
                           offset: Offset(0.0, 10.0),
                         )
                       ]),
-                  child: Text("MESA 3", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                  child: Text("MESA 4", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                 )),
               GestureDetector(
-                onTap: (){
+                onTap: () async {
+                  String fecha_seleccionada = myControllerFecha.text;
+                  String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
+
+                  List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 10");
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 6",)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 10",detalle: detalle)));
                 },
                 child:Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only( left: 100, right: 15),
                   width: MediaQuery.of(context).size.width* 0.1,
                   height: MediaQuery.of(context).size.height *0.08,
-                  decoration:  BoxDecoration(color: mesa6 == "R" ? Colors.green: Colors.red,
+                  decoration:  BoxDecoration(color: mesa10 == "R" ? Colors.green: Colors.red,
 
                       borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
                         BoxShadow(
@@ -574,7 +591,7 @@ class _CajaPedidosState extends State<CajaPedidos> {
                           offset: Offset(0.0, 10.0),
                         )
                       ]),
-                  child: Text("MESA 6", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                  child: Text("MESA 10", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                 )),
                 Container(
                   alignment: Alignment.center,
@@ -642,16 +659,16 @@ class _CajaPedidosState extends State<CajaPedidos> {
                       String fecha_seleccionada = myControllerFecha.text;
                       String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
 
-                      List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 12");
+                      List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 13");
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 12",detalle: detalle)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 13",detalle: detalle)));
                     },
                     child:Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric( horizontal: 15),
                   width: MediaQuery.of(context).size.width* 0.1,
                   height: MediaQuery.of(context).size.height *0.08,
-                  decoration:  BoxDecoration(color: mesa12 == "R" ? Colors.green: Colors.red,
+                  decoration:  BoxDecoration(color: mesa13 == "R" ? Colors.green: Colors.red,
 
                       borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
                         BoxShadow(
@@ -660,7 +677,7 @@ class _CajaPedidosState extends State<CajaPedidos> {
                           offset: Offset(0.0, 10.0),
                         )
                       ]),
-                  child: Text("MESA 12", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                  child: Text("MESA 13", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                 )),
 
               ],
@@ -703,36 +720,11 @@ class _CajaPedidosState extends State<CajaPedidos> {
                   String fecha_seleccionada = myControllerFecha.text;
                   String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
 
-                  List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 4");
+                  List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 5");
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 4",detalle: detalle)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 5",detalle: detalle)));
                 },
                 child:Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                    width: MediaQuery.of(context).size.width* 0.10,
-                    height: MediaQuery.of(context).size.height *0.10,
-                    decoration:  BoxDecoration(color: mesa4 == "R" ? Colors.green: Colors.red,
-
-                        borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 10.0,
-                            offset: Offset(0.0, 10.0),
-                          )
-                        ]),
-                    child: Text("MESA 4", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
-                  )),
-                  GestureDetector(
-                    onTap: () async{
-                      String fecha_seleccionada = myControllerFecha.text;
-                      String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
-
-                      List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 5");
-                      Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 5",detalle: detalle)));
-                    },
-                      child: Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                     width: MediaQuery.of(context).size.width* 0.10,
@@ -747,6 +739,31 @@ class _CajaPedidosState extends State<CajaPedidos> {
                           )
                         ]),
                     child: Text("MESA 5", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                  )),
+                  GestureDetector(
+                    onTap: () async{
+                      String fecha_seleccionada = myControllerFecha.text;
+                      String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
+
+                      List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 6");
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 6",detalle: detalle)));
+                    },
+                      child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                    width: MediaQuery.of(context).size.width* 0.10,
+                    height: MediaQuery.of(context).size.height *0.10,
+                    decoration:  BoxDecoration(color: mesa6 == "R" ? Colors.green: Colors.red,
+
+                        borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 10.0,
+                            offset: Offset(0.0, 10.0),
+                          )
+                        ]),
+                    child: Text("MESA 6", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                   )),
               GestureDetector(
                   onTap: () async{
@@ -834,31 +851,6 @@ class _CajaPedidosState extends State<CajaPedidos> {
                     String fecha_seleccionada = myControllerFecha.text;
                     String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
 
-                    List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 10");
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 10",detalle: detalle)));
-                  },
-                child:Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                    width: MediaQuery.of(context).size.width* 0.10,
-                    height: MediaQuery.of(context).size.height *0.10,
-                    decoration:  BoxDecoration(color: mesa10 == "R" ? Colors.green: Colors.red,
-
-                        borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 10.0,
-                            offset: Offset(0.0, 10.0),
-                          )
-                        ]),
-                    child: Text("MESA 10", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
-                  )),
-              GestureDetector(
-                  onTap: () async{
-                    String fecha_seleccionada = myControllerFecha.text;
-                    String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
-
                     List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 11");
                     Navigator.pop(context);
                     Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 11",detalle: detalle)));
@@ -878,6 +870,31 @@ class _CajaPedidosState extends State<CajaPedidos> {
                           )
                         ]),
                     child: Text("MESA 11", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                  )),
+              GestureDetector(
+                  onTap: () async{
+                    String fecha_seleccionada = myControllerFecha.text;
+                    String fecha = fecha_seleccionada.toString().substring(6,10)+"-"+fecha_seleccionada.toString().substring(3,5)+"-"+fecha_seleccionada.toString().substring(0,2);
+
+                    List? detalle = await VentaList().RecibirDatosVentas(fecha, "Mesa 12");
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MesaDetalle(mesa: "Mesa 12",detalle: detalle)));
+                  },
+                child:Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                    width: MediaQuery.of(context).size.width* 0.10,
+                    height: MediaQuery.of(context).size.height *0.10,
+                    decoration:  BoxDecoration(color: mesa12 == "R" ? Colors.green: Colors.red,
+
+                        borderRadius: BorderRadius.all(Radius.circular(15)), boxShadow:  [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 10.0,
+                            offset: Offset(0.0, 10.0),
+                          )
+                        ]),
+                    child: Text("MESA 12", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                   )),
 
                 ],
